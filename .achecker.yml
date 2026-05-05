@@ -1,0 +1,42 @@
+# IBM Accessibility Checker Configuration
+# Documentation: https://github.com/IBMa/equal-access/blob/master/accessibility-checker/boilerplates/cucumber-selenium/.achecker.yml
+
+# Specify rule archive
+# Use 'latest' for most recent rules, or a specific date like '2024-12-18'
+# IBM Accessibility 7.3 uses the latest ruleset
+ruleArchive: latest
+
+# Specify one or many policies to scan against
+policies:
+  - IBM_Accessibility
+
+# Configure the format of the report
+reportLevels:
+  - violation
+  - recommendation
+  - manual
+
+# Specify labels to be applied to the results
+label:
+  - accessibility-cli
+  - automated-scan
+
+# Configure the output folder for reports
+outputFolder: results
+
+# Configure the output format (json, csv, html, xlsx)
+outputFormat:
+  - json
+  - html
+  - xlsx
+
+# Configure the baseline folder for comparison
+baselineFolder: .baseline
+
+# Capture screenshots on violations
+captureScreenshots: true
+
+# Maximum number of violations to capture screenshots for
+maxScreenshots: 50
+
+# Made with Bob

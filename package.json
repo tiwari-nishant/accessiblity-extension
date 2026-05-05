@@ -1,0 +1,27 @@
+{
+  "name": "accessibility-cli",
+  "version": "1.0.0",
+  "description": "Automated accessibility scanning for all routes using IBM accessibility-checker",
+  "main": "scan.js",
+  "scripts": {
+    "scan": "node scan.js",
+    "report": "node generate-report.js",
+    "server": "node websocket-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "scanner",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "accessibility-checker": "^3.1.72",
+    "cheerio": "^1.0.0-rc.12",
+    "puppeteer": "^22.0.0",
+    "ws": "^8.20.0",
+    "xlsx": "^0.18.5"
+  }
+}

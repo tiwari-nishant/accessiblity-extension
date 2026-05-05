@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Scanner Extension - Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin: -20px -20px 40px -20px;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        nav h3 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        nav ul {
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 8px 0;
+        }
+        
+        nav ul li a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        section {
+            margin-bottom: 50px;
+        }
+        
+        h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+        }
+        
+        h4 {
+            color: #555;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+        
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .alert {
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        
+        .alert-info {
+            background: #e7f3ff;
+            border-color: #2196F3;
+            color: #0c5460;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+            color: #856404;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .card h4 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        
+        table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .button:hover {
+            background: #764ba2;
+        }
+        
+        footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+            text-align: center;
+            color: #666;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            header {
+                background: #667eea;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            pre {
+                background: #2d2d2d;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Accessibility Scanner Extension</h1>
+            <p>Complete Setup Guide - From Zero to Scanning</p>
+        </header>
+
+        <nav>
+            <h3>📋 Table of Contents</h3>
+            <ul>
+                <li><a href="#prerequisites">Prerequisites</a></li>
+                <li><a href="#backend-setup">Part 1: Backend Setup</a></li>
+                <li><a href="#extension-setup">Part 2: Browser Extension Setup</a></li>
+                <li><a href="#usage">Part 3: Usage</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#configuration">Configuration</a></li>
+            </ul>
+        </nav>
+
+        <section id="prerequisites">
+            <h2>📦 Prerequisites</h2>
+            <p>Before you begin, ensure you have the following installed:</p>
+            
+            <div class="card">
+                <h4>Required Software</h4>
+                <ul>
+                    <li><strong>Node.js</strong> (v14 or higher) - <a href="https://nodejs.org/" target="_blank">Download here</a></li>
+                    <li><strong>npm</strong> (comes with Node.js)</li>
+                    <li><strong>Firefox Browser</strong> - <a href="https://www.mozilla.org/firefox/" target="_blank">Download here</a></li>
+                    <li><strong>Git</strong> (optional) - <a href="https://git-scm.com/" target="_blank">Download here</a></li>
+                </ul>
+            </div>
+
+            <h3>Verify Installation</h3>
+            <p>Open a terminal and run:</p>
+            <pre><code>node --version
+npm --version</code></pre>
+            <p>You should see version numbers for both commands.</p>
+        </section>
+
+        <section id="backend-setup">
+            <h2>🔧 Part 1: Backend Setup</h2>
+
+            <h3><span class="step-number">1</span>Create Project Directory</h3>
+            <pre><code># Create a new directory for the project
+mkdir accessibility-scanner
+cd accessibility-scanner</code></pre>
+
+            <h3><span class="step-number">2</span>Initialize Node.js Project</h3>
+            <pre><code># Initialize package.json
+npm init -y</code></pre>
+
+            <h3><span class="step-number">3</span>Install Dependencies</h3>
+            <pre><code># Install required packages
+npm install accessibility-checker puppeteer ws exceljs</code></pre>
+            
+            <div class="alert alert-info">
+                <strong>📦 Packages Installed:</strong>
+                <ul>
+                    <li><code>accessibility-checker</code> - IBM's accessibility testing tool</li>
+                    <li><code>puppeteer</code> - Headless browser automation</li>
+                    <li><code>ws</code> - WebSocket server for browser extension</li>
+                    <li><code>exceljs</code> - Excel report generation</li>
+                </ul>
+            </div>
+
+            <h3><span class="step-number">4</span>Create Configuration Files</h3>
+            
+            <h4>Create .achecker.yml</h4>
+            <p>Create a file named <code>.achecker.yml</code> in the project root:</p>
+            <pre><code># Accessibility Checker Configuration
+policies:
+  - IBM_Accessibility
+
+reportLevels:
+  - violation
+  - recommendation
+  - manual
+
+outputFormat:
+  - json
+  - html
+  - csv
+  - xlsx
+
+outputFolder: results
+outputFilenameTimestamp: false
+
+label:
+  - OpenBMC-Web-UI</code></pre>
+
+            <h4>Create .gitignore</h4>
+            <pre><code>node_modules/
+results/
+*.log
+.DS_Store</code></pre>
+
+            <h3><span class="step-number">5</span>Create Backend Scripts</h3>
+            <p>You need to create three main scripts:</p>
+            <ul>
+                <li><code>scan.js</code> - Main CLI scanning script</li>
+                <li><code>websocket-server.js</code> - WebSocket server for browser extension</li>
+                <li><code>generate-report.js</code> - Excel report generation utility</li>
+            </ul>
+            
+            <div class="alert alert-warning">
+                <strong>⚠️ Note:</strong> Download these files from the project repository or copy them from the existing setup.
+            </div>
+
+            <h3><span class="step-number">6</span>Update package.json Scripts</h3>
+            <p>Edit your <code>package.json</code> and add these scripts:</p>
+            <pre><code>{
+  "scripts": {
+    "scan": "node scan.js",
+    "server": "node websocket-server.js",
+    "report": "node generate-report.js"
+  }
+}</code></pre>
+
+            <h3><span class="step-number">7</span>Test Backend Installation</h3>
+            <pre><code># Test the WebSocket server
+npm run server</code></pre>
+            
+            <div class="alert alert-success">
+                <strong>✅ Expected Output:</strong>
+                <pre><code>WebSocket server running on ws://localhost:8080
+Waiting for browser extension to connect...</code></pre>
+            </div>
+            
+            <p>Keep this terminal open. Open a new terminal for the next steps.</p>
+        </section>
+
+        <section id="extension-setup">
+            <h2>🔌 Part 2: Browser Extension Setup</h2>
+
+            <h3><span class="step-number">1</span>Create Extension Directory Structure</h3>
+            <pre><code>mkdir -p browser-extension/sidebar
+mkdir -p browser-extension/icons</code></pre>
+
+            <h3><span class="step-number">2</span>Create Extension Files</h3>
+            
+            <h4>Create manifest.json</h4>
+            <p>Create <code>browser-extension/manifest.json</code>:</p>
+            <pre><code>{
+  "manifest_version": 2,
+  "name": "Accessibility Scanner",
+  "version": "1.0.0",
+  "description": "Automated accessibility scanning",
+  
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "downloads",
+    "<all_urls>"
+  ],
+  
+  "background": {
+    "scripts": ["background.js"]
+  },
+  
+  "sidebar_action": {
+    "default_title": "Accessibility Scanner",
+    "default_panel": "sidebar/sidebar.html"
+  },
+  
+  "browser_action": {
+    "default_title": "Open Accessibility Scanner"
+  }
+}</code></pre>
+
+            <h4>Create background.js</h4>
+            <p>Create <code>browser-extension/background.js</code>:</p>
+            <pre><code>// Open sidebar when browser action is clicked
+browser.browserAction.onClicked.addListener(() => {
+  browser.sidebarAction.open();
+});</code></pre>
+
+            <h4>Create Sidebar Files</h4>
+            <p>Create the following files in <code>browser-extension/sidebar/</code>:</p>
+            <ul>
+                <li><code>sidebar.html</code> - Sidebar HTML structure</li>
+                <li><code>sidebar.css</code> - Sidebar styles</li>
+                <li><code>sidebar.js</code> - Sidebar logic and WebSocket client</li>
+            </ul>
+            
+            <div class="alert alert-warning">
+                <strong>⚠️ Note:</strong> Download these files from the project repository or copy them from the existing setup.
+            </div>
+
+            <h3><span class="step-number">3</span>Create Extension Icons</h3>
+            <p>Create icon files in <code>browser-extension/icons/</code>:</p>
+            <ul>
+                <li><code>icon-16.png</code> (16x16 pixels)</li>
+                <li><code>icon-32.png</code> (32x32 pixels)</li>
+                <li><code>icon-48.png</code> (48x48 pixels)</li>
+                <li><code>icon-128.png</code> (128x128 pixels)</li>
+            </ul>
+            
+            <div class="card">
+                <h4>Quick Icon Creation</h4>
+                <p>For testing, you can:</p>
+                <ol>
+                    <li>Use any image editor to create simple colored squares</li>
+                    <li>Add text "A11y" or an accessibility symbol</li>
+                    <li>Export in the required sizes</li>
+                    <li>Or use placeholder icons from <a href="https://placeholder.com/" target="_blank">placeholder.com</a></li>
+                </ol>
+            </div>
+
+            <h3><span class="step-number">4</span>Load Extension in Firefox</h3>
+            <ol>
+                <li>Open Firefox</li>
+                <li>Navigate to <code>about:debugging#/runtime/this-firefox</code></li>
+                <li>Click "Load Temporary Add-on..."</li>
+                <li>Navigate to your <code>browser-extension</code> folder</li>
+                <li>Select the <code>manifest.json</code> file</li>
+                <li>Click "Open"</li>
+            </ol>
+            
+            <div class="alert alert-success">
+                <strong>✅ Success!</strong> The extension should now appear in your Firefox extensions list.
+            </div>
+
+            <h3><span class="step-number">5</span>Open the Extension Sidebar</h3>
+            <ol>
+                <li>Click the extension icon in the Firefox toolbar</li>
+                <li>The sidebar should open on the left side</li>
+                <li>You should see "Accessibility Scanner" interface</li>
+            </ol>
+        </section>
+
+        <section id="usage">
+            <h2>🚀 Part 3: Usage</h2>
+
+            <h3>Using the Browser Extension</h3>
+            
+            <div class="card">
+                <h4>Step-by-Step Process</h4>
+                <ol>
+                    <li><strong>Start the WebSocket Server</strong>
+                        <pre><code>npm run server</code></pre>
+                        Keep this running in a terminal.
+                    </li>
+                    <li><strong>Open Your Web Application</strong>
+                        <ul>
+                            <li>Navigate to your localhost application (e.g., <code>http://localhost:8000</code>)</li>
+                            <li>URL must contain "localhost" or "stglabs"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Open the Extension Sidebar</strong>
+                        <ul>
+                            <li>Click the extension icon or press <code>Ctrl+B</code> / <code>Cmd+B</code></li>
+                            <li>Sidebar should show "Connected" status</li>
+                        </ul>
+                    </li>
+                    <li><strong>Run a Scan</strong>
+                        <ul>
+                            <li>Click the "Run Scan" button</li>
+                            <li>Watch progress as it scans all routes</li>
+                            <li>View real-time logs and statistics</li>
+                        </ul>
+                    </li>
+                    <li><strong>View Reports</strong>
+                        <ul>
+                            <li>Check the <code>results/</code> directory</li>
+                            <li>Reports available in HTML, JSON, CSV, and XLSX formats</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h3>Using the CLI Scanner</h3>
+            <p>For standalone scanning without the browser extension:</p>
+            <pre><code>npm run scan</code></pre>
+            <p>This will scan all configured routes and generate reports in the <code>results/</code> directory.</p>
+
+            <h3>Generating Excel Reports</h3>
+            <p>To create a consolidated Excel report:</p>
+            <pre><code>npm run report</code></pre>
+        </section>
+
+        <section id="troubleshooting">
+            <h2>🔧 Troubleshooting</h2>
+
+            <h3>Backend Issues</h3>
+            
+            <div class="card">
+                <h4>❌ "Cannot find module 'accessibility-checker'"</h4>
+                <p><strong>Solution:</strong></p>
+                <pre><code>npm install</code></pre>
+            </div>
+
+            <div class="card">
+                <h4>❌ "Port 8080 already in use"</h4>
+                <p><strong>Solution on macOS/Linux:</strong></p>
+                <pre><code>lsof -ti:8080 | xargs kill -9</code></pre>
+                <p><strong>Solution on Windows:</strong></p>
+                <pre><code>netstat -ano | findstr :8080
+taskkill /PID <PID> /F</code></pre>
+            </div>
+
+            <div class="card">
+                <h4>❌ WebSocket server not connecting</h4>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Ensure the server is running (<code>npm run server</code>)</li>
+                    <li>Check that no firewall is blocking port 8080</li>
+                    <li>Verify server shows "WebSocket server running on ws://localhost:8080"</li>
+                </ul>
+            </div>
+
+            <h3>Browser Extension Issues</h3>
+
+            <div class="card">
+                <h4>❌ Extension not loading</h4>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Verify all files are in correct directories</li>
+                    <li>Check browser console for errors (<code>F12</code> → Console)</li>
+                    <li>Ensure <code>manifest.json</code> is valid JSON</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>❌ "Disconnected from server"</h4>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Start the WebSocket server: <code>npm run server</code></li>
+                    <li>Refresh the extension sidebar</li>
+                    <li>Check browser console for connection errors</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>❌ "Invalid URL" error</h4>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Ensure you're on a page with "localhost" or "stglabs" in the URL</li>
+                    <li>Extension only works with these domains for security</li>
+                </ul>
+            </div>
+
+            <h3>Scan Issues</h3>
+
+            <div class="card">
+                <h4>❌ Scans timing out</h4>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Increase timeout in <code>websocket-server.js</code></li>
+                    <li>Check if target website is accessible</li>
+                    <li>Verify authentication credentials if required</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>❌ No reports generated</h4>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Check the <code>results/</code> directory exists</li>
+                    <li>Verify <code>.achecker.yml</code> configuration</li>
+                    <li>Look for errors in server terminal</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="configuration">
+            <h2>⚙️ Configuration</h2>
+
+            <h3>Customizing Routes to Scan</h3>
+            <p>Edit <code>websocket-server.js</code> and modify the <code>ROUTES_TO_SCAN</code> array:</p>
+            <pre><code>const ROUTES_TO_SCAN = [
+    '/your-route-1',
+    '/your-route-2',
+    '/your-route-3',
+    // Add more routes...
+];</code></pre>
+
+            <h3>Customizing Authentication</h3>
+            <p>Edit <code>websocket-server.js</code> and update the login configuration:</p>
+            <pre><code>const LOGIN_CONFIG = {
+    url: 'http://localhost:8000/#/login',
+    usernameSelector: '#username',
+    passwordSelector: '#password',
+    submitSelector: 'button[type="submit"]',
+    username: 'your-username',
+    password: 'your-password'
+};</code></pre>
+
+            <h3>Customizing Accessibility Rules</h3>
+            <p>Edit <code>.achecker.yml</code> to change:</p>
+            <ul>
+                <li><strong>Policies:</strong> IBM_Accessibility, WCAG_2_1, etc.</li>
+                <li><strong>Report levels:</strong> violation, recommendation, manual, potential</li>
+                <li><strong>Output formats:</strong> json, html, csv, xlsx</li>
+            </ul>
+
+            <h3>Project Structure</h3>
+            <pre><code>accessibility-scanner/
+├── .achecker.yml              # Configuration
+├── .gitignore                 # Git ignore
+├── package.json               # Dependencies
+├── scan.js                    # CLI scanner
+├── websocket-server.js        # WebSocket server
+├── generate-report.js         # Report generator
+├── SETUP.md                   # Markdown guide
+├── SETUP.html                 # This file
+├── README.md                  # Documentation
+├── browser-extension/         # Firefox extension
+│   ├── manifest.json
+│   ├── background.js
+│   ├── icons/
+│   └── sidebar/
+│       ├── sidebar.html
+│       ├── sidebar.css
+│       └── sidebar.js
+└── results/                   # Generated reports
+    ├── *.html
+    ├── *.json
+    ├── *.csv
+    └── *.xlsx</code></pre>
+        </section>
+
+        <section>
+            <h2>🎯 Next Steps</h2>
+            <ol>
+                <li><strong>Customize Routes:</strong> Update routes in <code>websocket-server.js</code></li>
+                <li><strong>Configure Authentication:</strong> Set up login credentials if needed</li>
+                <li><strong>Run Your First Scan:</strong> Start server and use extension</li>
+                <li><strong>Review Reports:</strong> Check <code>results/</code> directory</li>
+                <li><strong>Integrate into CI/CD:</strong> Use CLI scanner in automated testing</li>
+            </ol>
+        </section>
+
+        <footer>
+            <p><strong>📚 Additional Resources</strong></p>
+            <p>
+                <a href="https://www.npmjs.com/package/accessibility-checker" target="_blank">IBM Accessibility Checker Documentation</a> |
+                <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions" target="_blank">Firefox WebExtensions API</a> |
+                <a href="https://pptr.dev/" target="_blank">Puppeteer Documentation</a>
+            </p>
+            <p style="margin-top: 20px; color: #999;">
+                This project uses the IBM Accessibility Checker, licensed under Apache 2.0
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

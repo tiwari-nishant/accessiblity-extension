@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "name": "Accessibility Scanner",
+  "version": "1.0.0",
+  "description": "Automated accessibility scanning for BMC web interfaces",
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "downloads",
+    "<all_urls>"
+  ],
+  "sidebar_action": {
+    "default_title": "Accessibility Scanner",
+    "default_panel": "sidebar/sidebar.html",
+    "default_icon": "icons/icon-48.png"
+  },
+  "browser_action": {
+    "default_icon": "icons/icon-48.png",
+    "default_title": "Open Accessibility Scanner"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "accessibility-scanner@example.com"
+    }
+  }
+}

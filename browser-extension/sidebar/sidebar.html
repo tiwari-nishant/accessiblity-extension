@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Scanner</title>
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Accessibility Scanner</h1>
+            <p class="subtitle">IBM Accessibility Checker</p>
+        </header>
+
+        <div class="status-section">
+            <div id="connection-status" class="status disconnected">
+                <span class="status-dot"></span>
+                <span class="status-text">Disconnected</span>
+            </div>
+            <div id="current-url" class="current-url">
+                <strong>Current URL:</strong>
+                <span id="url-display">-</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="run-scan" class="btn btn-primary" disabled>
+                <span class="btn-icon">▶</span>
+                Run Scan
+            </button>
+            <button id="cancel-scan" class="btn btn-danger" disabled>
+                <span class="btn-icon">⏹</span>
+                Cancel Scan
+            </button>
+        </div>
+
+        <div class="progress-section" id="progress-section" style="display: none;">
+            <div class="progress-header">
+                <span id="progress-text">Scanning...</span>
+                <span id="progress-count">0/0</span>
+            </div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <div id="current-page" class="current-page"></div>
+        </div>
+
+        <div class="summary-section" id="summary-section" style="display: none;">
+            <h3>Scan Summary</h3>
+            <div class="summary-grid">
+                <div class="summary-card violations">
+                    <div class="summary-number" id="total-violations">0</div>
+                    <div class="summary-label">Violations</div>
+                </div>
+                <div class="summary-card recommendations">
+                    <div class="summary-number" id="total-recommendations">0</div>
+                    <div class="summary-label">Recommendations</div>
+                </div>
+                <div class="summary-card manual">
+                    <div class="summary-number" id="total-manual">0</div>
+                    <div class="summary-label">Manual Checks</div>
+                </div>
+                <div class="summary-card total">
+                    <div class="summary-number" id="total-issues">0</div>
+                    <div class="summary-label">Total Issues</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="logs-section">
+            <div class="logs-header">
+                <h3>Scan Logs</h3>
+                <button id="clear-logs" class="btn-small">Clear</button>
+            </div>
+            <div id="logs" class="logs"></div>
+        </div>
+    </div>
+
+    <script src="sidebar.js"></script>
+</body>
+</html>
